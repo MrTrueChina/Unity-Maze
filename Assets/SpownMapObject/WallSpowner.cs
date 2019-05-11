@@ -18,7 +18,7 @@ public class WallSpowner : MonoBehaviour
     }
     Maze _maze;
 
-    #pragma warning disable 0649
+#pragma warning disable 0649
     [SerializeField]
     GameObject _wall;
 
