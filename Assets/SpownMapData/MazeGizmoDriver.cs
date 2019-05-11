@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MazeGizmoDriver : MonoBehaviour
 {
+    #pragma warning disable 0649
     [SerializeField]
     WallSpowner _wallSpowner;
 

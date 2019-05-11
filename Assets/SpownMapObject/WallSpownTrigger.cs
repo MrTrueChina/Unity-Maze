@@ -5,6 +5,7 @@
 /// </summary>
 public class WallSpownTrigger : MonoBehaviour
 {
+    #pragma warning disable 0649 // 这个版本的Unity和VS匹配不太好，加了[SerializeField]的属性不初始化也会出现未初始化警告，需要加上这个【预处理器指令】（用#开头的一些特定的语句）
     [SerializeField]
     WallSpowner _wallSpowner;
 

@@ -18,6 +18,7 @@ public class WallSpowner : MonoBehaviour
     }
     Maze _maze;
 
+    #pragma warning disable 0649
     [SerializeField]
     GameObject _wall;
 
@@ -179,12 +180,13 @@ public class WallSpowner : MonoBehaviour
 
     List<Transform> GetNeedRemoveWalls(List<Vector2Int> needSpownWallsPosition)
     {
-        //TODO：根据需要创建墙的位置和现在的墙列表返回应该移除的墙列表
         /*
          *  筛选出现在的墙里位置不在需要生成的墙的列表里的返回
          */
-        return _walls.FindAll((Transform transform) => { return IsNeedRemove(transform, needSpownWallsPosition); });
-        //TODO：如果这里正确了，加上FindAll的功能，疑似是遍历或相同效果
+        return _walls.FindAll((Transform transform) => { return IsNeedRemove(transform, needSpownWallsPosition); }); // 这个Lambda表达式的参数名叫什么不影响结果，想一想传方法的方式：只传名字不传括号，参数名根本用不到
+        //List.FindAll()：按照制定标准搜索元素
+        //指定的标准可以是一个方法，这个方法需要以List元素类型为参数、返回bool值，true代表这个元素应该被搜索到，false则代表这个元素不应该被搜索到
+        //底层可能是跑了一个迭代器，也可能是其他方法，但效果上类似于遍历所有元素并执行传入的方法确定这个元素是不是应该搜索到
     }
 
     bool IsNeedRemove(Transform wall, List<Vector2Int> needSpoenWallsPosition)
