@@ -7,6 +7,10 @@ public class WallSpowner : MonoBehaviour
 {
     public Maze maze
     {
+        get
+        {
+            return _maze;
+        }
         set
         {
             _maze = value;
@@ -58,21 +62,18 @@ public class WallSpowner : MonoBehaviour
          *      把这个方向需要生成墙的路加进列表
          *  }
          */
-        List<Vector2Int> quads = new List<Vector2Int>();
+        List<Vector2Int> quads = new List<Vector2Int>() { center };
 
-        quads.Add(center);
-
-        quads.AddRange(GetADirectionNeewSpownWallsQuads(center, Vector2Int.up));
-        quads.AddRange(GetADirectionNeewSpownWallsQuads(center, Vector2Int.right));
-        quads.AddRange(GetADirectionNeewSpownWallsQuads(center, Vector2Int.down));
-        quads.AddRange(GetADirectionNeewSpownWallsQuads(center, Vector2Int.left));
+        quads.AddRange(GetADirectionNeewSpownWallsQuadsWithOutStart(center, Vector2Int.up));
+        quads.AddRange(GetADirectionNeewSpownWallsQuadsWithOutStart(center, Vector2Int.right));
+        quads.AddRange(GetADirectionNeewSpownWallsQuadsWithOutStart(center, Vector2Int.down));
+        quads.AddRange(GetADirectionNeewSpownWallsQuadsWithOutStart(center, Vector2Int.left));
 
         return quads;
     }
 
-    List<Vector2Int > GetADirectionNeewSpownWallsQuads(Vector2Int center, Vector2Int direction)
+    List<Vector2Int> GetADirectionNeewSpownWallsQuadsWithOutStart(Vector2Int start, Vector2Int direction)
     {
-        //TODO：获取朝一个方向走能遇到的所有需要生成墙的地块
         /*
          *  把沿方向直到墙的地块加入列表
          *  
@@ -80,17 +81,42 @@ public class WallSpowner : MonoBehaviour
          *      if(这个地块两边有路)
          *          获取这个方向一条直线上的所有路，加入列表
          */
-        List<Vector2Int> quads = new List<Vector2Int>();
-        Vector2Int currentPosition = center;
-        while (_maze.CanThrough(currentPosition += direction)) // 这里用的是+=，所以效果是前进一步【之后】看是不是要在这一步执行
+        List<Vector2Int> quads = GetALineCanThroughQuadsWithOutStart(start, direction);
+
+        foreach (Vector2Int currentPosition in new List<Vector2Int>(quads)) // 因为前面获取了直到墙的路，所以这里可以遍历过去
         {
-            quads.Add(currentPosition);
+            quads.AddRange(GetALineCanThroughQuadsWithOutStart(currentPosition, LeftDirection(direction)));
+            quads.AddRange(GetALineCanThroughQuadsWithOutStart(currentPosition, RightDirection(direction)));
         }
+
+        return quads;
+        //Vector2Int currentPosition = start;
+        //while (_maze.CanThrough(currentPosition += direction)) // 这里用的是+=，所以效果是前进一步【之后】看是不是要在这一步执行
+        //{
+
+        //}
     }
 
-    List<Vector2Int> GetALineCanThroughQuads(Vector2Int center,Vector2Int direction)
+    List<Vector2Int> GetALineCanThroughQuadsWithOutStart(Vector2Int start, Vector2Int direction)
     {
-        //TODO：返回一行地块直到墙
+        /*
+         *  一直向前走
+         *  {
+         *      if(是路)
+         *          加进列表
+         *      else
+         *          返回列表
+         *  }
+         */
+        List<Vector2Int> quads = new List<Vector2Int>();
+
+        for (int i = 1; ; i++) // 因为不包括起点，所以从1开始
+        {
+            if (_maze.CanThrough(start + direction * i))
+                quads.Add(start + direction * i);
+            else
+                return quads;
+        }
     }
 
     Vector2Int LeftDirection(Vector2Int direction)
@@ -135,16 +161,16 @@ public class WallSpowner : MonoBehaviour
             Vector2Int currentAdjacentQuad;
 
             currentAdjacentQuad = quad + Vector2Int.up;
-            if (_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
+            if (!_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
                 walls.Add(currentAdjacentQuad);
             currentAdjacentQuad = quad + Vector2Int.right;
-            if (_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
+            if (!_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
                 walls.Add(currentAdjacentQuad);
             currentAdjacentQuad = quad + Vector2Int.down;
-            if (_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
+            if (!_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
                 walls.Add(currentAdjacentQuad);
             currentAdjacentQuad = quad + Vector2Int.left;
-            if (_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
+            if (!_maze.CanThrough(currentAdjacentQuad.x, currentAdjacentQuad.y) && !walls.Contains(currentAdjacentQuad))
                 walls.Add(currentAdjacentQuad);
         }
 
