@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class SpownController : MonoBehaviour
 {
-    #pragma warning disable 0649
+#pragma warning disable 0649
     [SerializeField]
     WallSpowner _wallSpowner;
 
+#pragma warning disable 0649
+    [SerializeField]
+    FullMazeSpowner _fullMazeSpowner;
+
     private void Awake()
     {
-        _wallSpowner.maze = SpownMazeData.Spown(20, 20);
+        Maze maze = SpownMazeData.Spown(20, 20);
+        _wallSpowner.maze = maze;
+        _fullMazeSpowner.maze = maze;
     }
 }

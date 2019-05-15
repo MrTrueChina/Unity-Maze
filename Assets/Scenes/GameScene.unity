@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &244595810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +298,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &280995605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 280995607}
+  - component: {fileID: 280995606}
+  m_Layer: 0
+  m_Name: Full Maze Spowner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &280995606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280995605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6329733ea1d6e24492b2fb4063520cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _single: {fileID: 1242647063879068, guid: 2c32a0aac358f6544bf1d7e64720b05c, type: 3}
+  _up: {fileID: 2404078726575289998, guid: c6990c5096827774d8a0700270d32439, type: 3}
+  _upRight: {fileID: 7999024595820982866, guid: f259bb98fafce8a47a746d7028828333,
+    type: 3}
+  _upDown: {fileID: 8962575154008795252, guid: 6217cc7ccdfbf7845b5e3631241fb683, type: 3}
+  _upLeft: {fileID: 6420593820409902766, guid: dcb2449c52637e4418a651f60507b37d, type: 3}
+  _upRightDown: {fileID: 2190164071136830472, guid: 5800c2c65a2340a4ab42d07439f92603,
+    type: 3}
+  _upRightLeft: {fileID: 2789453810758098125, guid: 5817c6eda8fdaf84087b4038d8210968,
+    type: 3}
+  _upDownLeft: {fileID: 1212783901049813141, guid: a503c07b056c33e46bb03646f8de70e5,
+    type: 3}
+  _upRightDownLeft: {fileID: 6942588112230335812, guid: 31602f213342ac94f95d0e9b0dfccffd,
+    type: 3}
+  _right: {fileID: 6432455892155497235, guid: b200294afb256fa48bd5194eaa632c41, type: 3}
+  _rightDown: {fileID: 5941016142644791641, guid: ed577c9a04249254ca12a8bfe85d54ab,
+    type: 3}
+  _rightLeft: {fileID: 4307789634398771454, guid: 7f225771ce47fec45b7a688bbf5948e3,
+    type: 3}
+  _rightDownLeft: {fileID: 7096229778823098815, guid: f22b3daf07370c24e87865a68961a0d8,
+    type: 3}
+  _down: {fileID: 8168145859621620362, guid: f65608171cd675c44b97cc119794bd62, type: 3}
+  _downLeft: {fileID: 6477882148899263210, guid: 3edeff090416dfd4d852baf5d8f1014d,
+    type: 3}
+  _left: {fileID: 6177307539932007083, guid: a9c65af3b03b443428faa67f6932c5ad, type: 3}
+--- !u!4 &280995607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280995605}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
@@ -412,6 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallSpowner: {fileID: 244595810}
+  _fullMazeSpowner: {fileID: 280995606}
 --- !u!4 &1255435586
 Transform:
   m_ObjectHideFlags: 0
@@ -527,11 +596,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129599514}
-  - component: {fileID: 2129599513}
-  - component: {fileID: 2129599512}
   - component: {fileID: 2129599511}
   - component: {fileID: 2129599510}
+  - component: {fileID: 2129599513}
   - component: {fileID: 2129599509}
+  - component: {fileID: 2129599512}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -563,7 +632,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -579,7 +648,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: -0.5, z: 0}
@@ -590,7 +659,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129599508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab334796edb60f040a9fd6ea96817f51, type: 3}
   m_Name: 
