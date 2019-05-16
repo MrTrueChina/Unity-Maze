@@ -14,7 +14,7 @@ public class SpownController : MonoBehaviour
 
     private void Awake()
     {
-        Maze maze = SpownMazeData.Spown(20, 20);
+        Maze maze = SpownMazeData.Spown(50, 50);
         _wallSpowner.maze = maze;
         _fullMazeSpowner.maze = maze;
     }
