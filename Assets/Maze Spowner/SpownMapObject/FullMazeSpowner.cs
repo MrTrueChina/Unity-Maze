@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class FullMazeSpowner : MonoBehaviour
 {
-    const float WALL_Y = 0;
+    const string MAZE_OBJECT_NAME = "Maze";
 
 #pragma warning disable 0649
     [SerializeField]
@@ -56,6 +56,9 @@ public class FullMazeSpowner : MonoBehaviour
 #pragma warning disable 0649
     [SerializeField]
     GameObject _left;
+#pragma warning disable 0649
+    [SerializeField]
+    GameObject _finish;
 
     public Maze maze
     {
@@ -69,6 +72,8 @@ public class FullMazeSpowner : MonoBehaviour
         }
     }
     Maze _maze;
+
+    Transform _mazeParent;
 
     /// <summary>
     /// 以byte值对应墙预制，对应规则是 0b左下右上 有墙1，没有是0
@@ -118,8 +123,21 @@ public class FullMazeSpowner : MonoBehaviour
     public void Spown()
     {
         /*
-         *  这个问题很好解决
-         *  
+         *  生成迷宫父物体
+         *  生成迷宫主体（墙）
+         *  生成终点
+         *  生成装饰
+         */
+        _mazeParent = new GameObject(MAZE_OBJECT_NAME).transform;
+
+        SpownMazeMainPart();
+        SpownFinish();
+        SpownOrnament();
+    }
+
+    private void SpownMazeMainPart()
+    {
+        /*
          *  遍历迷宫坐标
          *      if(是墙)
          *          生成墙
@@ -136,7 +154,7 @@ public class FullMazeSpowner : MonoBehaviour
          *  根据坐标获取预制
          *  实例化
          */
-        Instantiate(GetWallPrefab(x, y), new Vector3(x, WALL_Y, y), Quaternion.identity);
+        Instantiate(GetWallPrefab(x, y), new Vector3(x, 0, y), Quaternion.identity, _mazeParent);
     }
 
     GameObject GetWallPrefab(int x, int y)
@@ -169,5 +187,20 @@ public class FullMazeSpowner : MonoBehaviour
             wallValue |= 0b1000;
 
         return wallValue;
+    }
+
+    void SpownFinish()
+    {
+        Instantiate(_finish, GetFinishPosition(), Quaternion.identity, _mazeParent);
+    }
+
+    Vector3 GetFinishPosition()
+    {
+        return new Vector3(_maze.width - 2, 0, _maze.height - 2);
+    }
+
+    void SpownOrnament()
+    {
+        //TODO：生成装饰
     }
 }

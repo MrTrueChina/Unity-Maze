@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseRotate : MonoBehaviour
 {
@@ -27,16 +25,10 @@ public class MouseRotate : MonoBehaviour
 
     void RotateCamera()
     {
-        /*
-         *  270是正上方
-         *  0是前方
-         *  45是斜向下
-         *  90是正下方
-         */
         Vector3 rotation = _cameraTransform.rotation.eulerAngles;
 
         rotation.x -= Input.GetAxis("Mouse Y") * _speed;
-        rotation.x = rotation.x > 180 ? rotation.x - 360 : rotation.x; // Transform.rotation的欧拉角是没有负数的，和Inspector面板上显示的有正负是不一样的，因此从上到下的范围是[0-90]+[270-360]两个范围，在这里把270-360范围转为-90-0，方便后面Clamp
+        rotation.x = rotation.x > 180 ? rotation.x - 360 : rotation.x; // Transform.rotation的欧拉角是没有负数的，和Inspector面板上显示的有正负是不一样的，因此从上到下的范围是[270-360]+[0-90]两个范围，在这里把270-360范围转为-90-0，方便后面Clamp
         rotation.x = Mathf.Clamp(rotation.x, -90, 90);
 
         _cameraTransform.rotation = Quaternion.Euler(rotation);

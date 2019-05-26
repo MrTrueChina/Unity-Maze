@@ -1,7 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
 public static class SpownMazeData
 {
@@ -204,7 +202,7 @@ public static class SpownMazeData
 
     static Vector2Int GetRandomReadyToCarveNode()
     {
-        return _readyToCarveNodes.ElementAt(Random.Range(0, _readyToCarveNodes.Count));
+        return _readyToCarveNodes[Random.Range(0, _readyToCarveNodes.Count)];
     }
 
     static Vector2Int GetRandomContiguousCarvedNode(Vector2Int center)
